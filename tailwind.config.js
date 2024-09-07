@@ -5,7 +5,20 @@ export default {
 		extend: {},
 	},
 	daisyui: {
-		themes: [{ main: { primary: "#ffffff" } }],
+		themes: [
+			{
+				main: {
+					primary: "#DC975B",
+					b: "#C16A2E",
+					c: "#6F1211",
+					d: "#43050B",
+					e: "#A57986",
+					f: "#764656",
+					g: "#80775A",
+					h: "#403E23",
+				},
+			},
+		],
 	},
 	plugins: [require("daisyui")],
 }
