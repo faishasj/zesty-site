@@ -10,7 +10,9 @@ function App() {
           maxRedirects: 0,
           params: {
             actionType: "rsvp",
-            query: '[{ "index": 1, "attendance": false, "dietary": "kosher" }]',
+            query: JSON.stringify([
+              { index: 1, attendance: false, dietary: "kosher" },
+            ]),
           },
         }
       )
