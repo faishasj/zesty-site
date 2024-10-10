@@ -108,18 +108,20 @@ function RsvpForm() {
 			<div className="flex flex-col items-center rounded-3xl p-8 h-[80vh] w-[50vw] bg-slate-400">
 				{selectedGuest !== null ? (
 					<div className="flex flex-col items-center h-full w-4/5">
-						<button
-							onClick={() => {
-								setSelectedGuest(null)
-							}}
-							className="btn btn-outline w-12 absolute"
-						>
-							Back
-						</button>
-						<article className="text-3xl font-semibold mb-4">
-							RSVPing for {selectedGuest.name}
-						</article>
-						<div className="overflow-y-auto h-4/5 px-2 w-full">
+						<div className="flex justify-start items-center w-full h-12">
+							<button
+								onClick={() => {
+									setSelectedGuest(null)
+								}}
+								className="btn btn-outline w-12"
+							>
+								Back
+							</button>
+							<article className="text-3xl font-semibold w-full text-center">
+								RSVPing for {selectedGuest.name}
+							</article>
+						</div>
+						<div className="overflow-y-auto h-4/5 px-2 mt-4 w-full">
 							<article className="font-semibold">
 								{selectedGuest.name}
 							</article>
@@ -137,14 +139,14 @@ function RsvpForm() {
 								className="input input-bordered w-full max-w-xs"
 							/>
 							<div className="mt-4">
-								<article className="text-lg font-semibold">
+								<article className="text-xl font-semibold">
 									Group Attendees
 								</article>
 								<div className="flex flex-col gap-x-6">
 									{selectedGuest.group.map((guest, i) => (
 										<div
 											key={guest[1]}
-											className="flex flex-col"
+											className="flex flex-col mt-2"
 										>
 											<article className="font-semibold">
 												{guest[0]}
