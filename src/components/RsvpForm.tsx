@@ -21,7 +21,7 @@ function RsvpForm() {
 	const [selectedGuest, setSelectedGuest] = useState<selectedGuest | null>(
 		null
 	)
-	const [formInput, setFormInput] = useState<formInput[]>([])
+	const [formInput] = useState<formInput[]>([])
 
 	function handleSearchInput(event: React.ChangeEvent<HTMLInputElement>) {
 		setSearchInput(event.target.value)
@@ -104,81 +104,114 @@ function RsvpForm() {
 	}
 
 	return (
-		<div className="flex flex-col items-center p-4 h-screen w-full bg-b">
-			{selectedGuest !== null ? (
-				<div className="flex flex-col">
-					<article className="mb-4">RSVPing for</article>
-					<article>{selectedGuest.name}</article>
-					<div className="flex gap-x-4">
-						<article>Attending?</article>
-						<input type="checkbox" onChange={handleCheckbox(0)} />
-					</div>
-					<input
-						type="text"
-						placeholder="Dietary Requirements"
-						onChange={handleDietary(0)}
-						className="input input-bordered w-full max-w-xs"
-					/>
-					<div className="mt-4">
-						<article>Group Attendees</article>
-						<div className="flex gap-x-6">
-							{selectedGuest.group.map((guest, i) => (
-								<div key={guest[1]} className="flex flex-col">
-									<article>{guest[0]}</article>
-									<div className="flex gap-x-2">
-										<article>Attending?</article>
-										<input
-											type="checkbox"
-											onChange={handleCheckbox(i + 1)}
-										/>
-									</div>
-									<input
-										type="text"
-										placeholder="Dietary Requirements"
-										onChange={handleDietary(i + 1)}
-										className="input input-bordered w-full max-w-xs"
-									/>
+		<div className="flex flex-col items-center justify-center p-4 h-screen w-full bg-b">
+			<div className="flex flex-col items-center rounded-3xl p-8 h-[80vh] w-[50vw] bg-slate-400">
+				{selectedGuest !== null ? (
+					<div className="flex flex-col items-center h-full w-4/5">
+						<button
+							onClick={() => {
+								setSelectedGuest(null)
+							}}
+							className="btn btn-outline w-12 absolute"
+						>
+							Back
+						</button>
+						<article className="text-3xl font-semibold mb-4">
+							RSVPing for {selectedGuest.name}
+						</article>
+						<div className="overflow-y-auto h-4/5 px-2 w-full">
+							<article className="font-semibold">
+								{selectedGuest.name}
+							</article>
+							<div className="flex gap-x-4">
+								<article>Attending?</article>
+								<input
+									type="checkbox"
+									onChange={handleCheckbox(0)}
+								/>
+							</div>
+							<input
+								type="text"
+								placeholder="Dietary Requirements"
+								onChange={handleDietary(0)}
+								className="input input-bordered w-full max-w-xs"
+							/>
+							<div className="mt-4">
+								<article className="text-lg font-semibold">
+									Group Attendees
+								</article>
+								<div className="flex flex-col gap-x-6">
+									{selectedGuest.group.map((guest, i) => (
+										<div
+											key={guest[1]}
+											className="flex flex-col"
+										>
+											<article className="font-semibold">
+												{guest[0]}
+											</article>
+											<div className="flex gap-x-2">
+												<article>Attending?</article>
+												<input
+													type="checkbox"
+													onChange={handleCheckbox(
+														i + 1
+													)}
+												/>
+											</div>
+											<input
+												type="text"
+												placeholder="Dietary Requirements"
+												onChange={handleDietary(i + 1)}
+												className="input input-bordered w-full max-w-xs"
+											/>
+										</div>
+									))}
 								</div>
-							))}
+							</div>
+							<button
+								onClick={handleSubmission}
+								className="btn btn-neutral mt-4"
+							>
+								Submit
+							</button>
 						</div>
 					</div>
-					<button
-						onClick={handleSubmission}
-						className="btn btn-neutral mt-4"
-					>
-						Submit
-					</button>
-				</div>
-			) : (
-				<React.Fragment>
-					<div className="flex gap-4">
-						<input
-							type="text"
-							placeholder="Type here"
-							onChange={handleSearchInput}
-							className="input input-bordered w-full max-w-xs"
-						/>
-						<button
-							onClick={handleSearch}
-							className="btn btn-neutral"
-						>
-							Search
-						</button>
-					</div>
-					<div className="flex flex-col mt-4 gap-y-2">
-						{searchResults.map((result) => (
-							<button
-								key={result[1]}
-								value={result[1]}
-								onClick={fetchGuest}
-								className="btn btn-outline w-full"
-							>
-								{result[0]}
-							</button>
-						))}
-					</div>
-				</React.Fragment>
-			)}
+				) : (
+					<React.Fragment>
+						<div className="flex flex-col items-center h-1/6">
+							<article className="text-3xl font-semibold mb-2">
+								RSVP Here
+							</article>
+							<div className="flex gap-4">
+								<input
+									type="text"
+									placeholder="Enter your name"
+									onChange={handleSearchInput}
+									className="input input-bordered w-full max-w-md"
+								/>
+								<button
+									onClick={handleSearch}
+									className="btn btn-neutral"
+								>
+									Search
+								</button>
+							</div>
+						</div>
+						<div className="flex flex-col h-5/6 w-3/5 items-center overflow-y-auto mt-4 gap-y-2">
+							{searchResults.map((result) => (
+								<button
+									key={result[1]}
+									value={result[1]}
+									onClick={fetchGuest}
+									className="btn btn-outline w-11/12"
+								>
+									{result[0]}
+								</button>
+							))}
+						</div>
+					</React.Fragment>
+				)}
+			</div>
 		</div>
 	)
 }
