@@ -8,3 +8,20 @@ body {
   font-family: "EB Garamond", serif;
   font-optical-sizing: auto;
 }
+
+:where(.timeline-snap-icon) > li,
+.timeline-horizontal:where(.timeline-snap-icon) > li {
+  --timeline-col-start: 0.5rem !important;
+}
+
+.timeline-box {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  gap: 96px;
+  padding-top: 0px;
+  margin: 0px;
+  margin-left: 64px;
+  margin-bottom: 64px;
+}
