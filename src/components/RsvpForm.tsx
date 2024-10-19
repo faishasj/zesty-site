@@ -141,8 +141,8 @@ function RsvpForm() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center p-4 h-screen w-full bg-b snap-end">
-			<div className="flex flex-col items-center rounded-3xl p-8 h-[80vh] w-[50vw] bg-slate-400">
+		<div className="flex flex-col items-center justify-center p-4 h-screen w-full bg-primary snap-end">
+			<div className="flex flex-col items-center rounded-3xl p-8 h-[80vh] w-[50vw] bg-secondary">
 				{loading ? (
 					<DotLottieReact
 						src="https://lottie.host/276f08dd-d141-4a03-b68f-a26978d35281/322k4GRMWc.json"
@@ -256,11 +256,11 @@ function RsvpForm() {
 									type="text"
 									placeholder="Enter your name"
 									onChange={handleSearchInput}
-									className="input input-bordered w-full max-w-md"
+									className="input input-accent bg-white input-bordered w-full max-w-md"
 								/>
 								<button
 									onClick={handleSearch}
-									className="btn btn-neutral"
+									className="btn btn-accent"
 								>
 									Search
 								</button>
