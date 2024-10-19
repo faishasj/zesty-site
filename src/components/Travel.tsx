@@ -9,7 +9,7 @@ function Travel() {
 				alt="Photo collage of Rebekah and Nicholas."
 			/>
 			<div className="flex items-center justify-center h-full w-1/2 bg-base-300">
-				<div className="flex flex-col w-2/3 gap-y-4">
+				<div className="flex flex-col w-2/3 gap-y-6">
 					<article className="text-4xl font-semibold">Travel</article>
 					<article className="text-xl">
 						Should you wish to honour us with a gift, a contribution
