@@ -2,10 +2,10 @@ function FaqComp() {
 	return (
 		<div className="flex h-screen w-full items-center justify-center snap-start bg-primary">
 			<div className="flex flex-col items-center w-3/5">
-				<article className="text-4xl mb-12">
+				<article className="text-5xl mb-12">
 					Frequently asked questions
 				</article>
-				<article className="text-xl">
+				<article className="text-2xl">
 					Will the ceremony be outside?
 				</article>
 				<article>
@@ -14,7 +14,7 @@ function FaqComp() {
 				</article>
 				<article>The reception will be indoors.</article>
 				<div className="divider divider-secondary"></div>
-				<article className="text-xl">What is the dress code?</article>
+				<article className="text-2xl">What is the dress code?</article>
 				<article>
 					Formal dress code, autumnal pinks, greens, red, oranges.
 				</article>
@@ -25,15 +25,17 @@ function FaqComp() {
 					<div className="w-8 rounded-md bg-info" />
 				</div>
 				<div className="divider divider-secondary"></div>
-				<article className="text-xl">Will children be allowed?</article>
+				<article className="text-2xl">
+					Will children be allowed?
+				</article>
 				<article>Yes</article>
 				<div className="divider divider-secondary"></div>
-				<article className="text-xl">
+				<article className="text-2xl">
 					Looking into accomodation options?
 				</article>
 				<article>Rydges Hotel</article>
 				<div className="divider divider-secondary"></div>
-				<article className="text-xl">
+				<article className="text-2xl">
 					Just attending the ceremony?
 				</article>
 				<article>
