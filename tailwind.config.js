@@ -16,6 +16,7 @@ export default {
 					"base-content": "#F0DFD0",
 					info: "#403E23",
 					warning: "#C5Af9C",
+					success: "#000000",
 					error: "#FFFFFF",
 				},
 				// template: {

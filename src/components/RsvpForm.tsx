@@ -13,7 +13,8 @@ interface selectedGuest {
 interface formInput {
 	name: string
 	index: string
-	attendance: boolean
+	ceremony: boolean
+	reception: boolean
 	dietary: string
 }
 
@@ -25,6 +26,7 @@ function RsvpForm() {
 		null
 	)
 	const [formInput, setFormInput] = useState<formInput[]>([])
+	const [formPart, setFormPart] = useState(false)
 	const [submitted, setSubmitted] = useState(false)
 
 	function handleSearchInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -80,14 +82,16 @@ function RsvpForm() {
 				generatedObj.push({
 					name: output.data.name,
 					index: button.value,
-					attendance: false,
+					ceremony: false,
+					reception: false,
 					dietary: "",
 				})
 				output.data.group.forEach((element: string[]) => {
 					generatedObj.push({
 						name: element[0],
 						index: element[1].toString(),
-						attendance: false,
+						ceremony: false,
+						reception: false,
 						dietary: "",
 					})
 				})
@@ -111,19 +115,25 @@ function RsvpForm() {
 		}
 
 	const handleCheckbox =
-		(index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+		(index: number, eventName: string) =>
+		(event: React.ChangeEvent<HTMLInputElement>) => {
 			setFormInput(
 				formInput.map((obj, i) => {
 					if (i === index) {
-						obj.attendance = event.target.checked
-						if (event.target.checked === false) {
-							obj.dietary = ""
+						if (eventName === "reception") {
+							obj.reception = event.target.checked
+						} else if (eventName === "ceremony") {
+							obj.ceremony = event.target.checked
 						}
 					}
 					return obj
 				})
 			)
 		}
+
+	function handleFormButton() {
+		setFormPart(!formPart)
+	}
 
 	function handleSubmission() {
 		setLoading(true)
@@ -150,7 +160,7 @@ function RsvpForm() {
 	return (
 		<div className="flex items-center h-screen w-full bg-base-200 snap-end">
 			<div className="flex items-center justify-center h-full w-1/2">
-				<div className="flex flex-col h-5/6 w-4/5">
+				<div className="flex flex-col h-5/6 w-4/5 justify-center">
 					{loading ? (
 						<DotLottieReact
 							src="https://lottie.host/276f08dd-d141-4a03-b68f-a26978d35281/322k4GRMWc.json"
@@ -158,103 +168,211 @@ function RsvpForm() {
 							autoplay
 						/>
 					) : submitted ? (
-						<div className="flex flex-col h-full justify-center items-center text-xl">
-							Submission Complete
+						<div className="flex flex-col h-1/5 justify-center items-center text-xl bg-white rounded">
+							<article className="text-black font-semibold mb-2">
+								Thank you for completing the form
+							</article>
+							<article className="text-black">
+								We have sent off your response to the bride and
+								groom
+							</article>
 						</div>
 					) : selectedGuest !== null ? (
-						<div className="flex flex-col items-center h-full w-4/5">
-							<div className="flex justify-start items-center w-full h-12">
-								<button
-									onClick={() => {
-										setSelectedGuest(null)
-									}}
-									className="btn btn-outline w-12"
-								>
-									Back
-								</button>
-								<article className="text-3xl font-semibold w-full text-center">
-									RSVPing for {selectedGuest.name}
-								</article>
-							</div>
-							{selectedGuest.rsvpStatus === true ? (
-								<div className="flex h-4/5 items-center">
-									<article className="font-semibold text-lg">
-										{selectedGuest.name} has already RSVP'd
-									</article>
-								</div>
-							) : (
-								<div className="overflow-y-auto h-4/5 px-4 py-2 mt-4 w-full border">
-									<article className="font-semibold">
-										{selectedGuest.name}
-									</article>
-									<div className="flex gap-x-4">
-										<article>Attending?</article>
-										<input
-											type="checkbox"
-											className="checkbox checkbox-primary"
-											onChange={handleCheckbox(0)}
-										/>
-									</div>
-									{formInput[0].attendance ? (
-										<input
-											type="text"
-											placeholder="Dietary Requirements (Optional)"
-											onChange={handleDietary(0)}
-											className="input input-bordered w-full max-w-xs mt-2"
-										/>
-									) : null}
-									<div className="mt-4">
-										<article className="text-xl font-semibold">
-											Group Attendees
+						<div className="flex flex-col h-full w-full">
+							<article className="text-3xl h-[8%] font-semibold w-full text-center">
+								RSVP Form
+							</article>
+							<div className="flex flex-col h-[92%] bg-white rounded-md p-4 text-black">
+								{selectedGuest.rsvpStatus === true ? (
+									<div className="flex h-4/5 items-center">
+										<article className="font-semibold text-lg">
+											{selectedGuest.name} has already
+											RSVP'd
 										</article>
-										<div className="flex flex-col gap-x-6">
-											{selectedGuest.group.map(
-												(guest, i) => (
-													<div
-														key={guest[1]}
-														className="flex flex-col mt-2"
-													>
-														<article className="font-semibold">
-															{guest[0]}
-														</article>
-														<div className="flex gap-x-2">
+									</div>
+								) : formPart ? (
+									<React.Fragment>
+										<div className="flex flex-col overflow-y-auto h-full w-full gap-y-4">
+											<article className="my-2 font-semibold text-xl">
+												Dietary requirements
+											</article>
+											{formInput.map((obj, i) => {
+												if (obj.reception) {
+													return (
+														<div
+															key={obj.name}
+															className="flex flex-col gap-y-4"
+														>
 															<article>
-																Attending?
+																{obj.name}
 															</article>
 															<input
-																type="checkbox"
-																className="checkbox checkbox-primary"
-																onChange={handleCheckbox(
-																	i + 1
-																)}
-															/>
-														</div>
-														{formInput[i + 1]
-															.attendance ? (
-															<input
 																type="text"
-																placeholder="Dietary Requirements (Optional)"
 																onChange={handleDietary(
-																	i + 1
+																	i
 																)}
-																className="input input-bordered w-full max-w-xs mt-2"
+																placeholder="Dietary Requirements (optional)"
+																className="ml-2 input input-success w-full text-black bg-white max-w-xs"
 															/>
-														) : null}
-
-														<div className="divider divider-primary"></div>
-													</div>
-												)
-											)}
+															<div className="divider divider-success px-2"></div>
+														</div>
+													)
+												} else {
+													return null
+												}
+											})}
 										</div>
-									</div>
-									<button
-										onClick={handleSubmission}
-										className="btn btn-neutral mt-4"
-									>
-										Submit
-									</button>
-								</div>
-							)}
+										<div className="flex justify-between">
+											<button
+												onClick={handleFormButton}
+												className="btn btn-outline btn-success mt-4"
+											>
+												Go Back
+											</button>
+											<button
+												onClick={handleSubmission}
+												className="btn btn-outline btn-success mt-4"
+											>
+												Confirm Choices
+												<div className="flex gap-x-2">
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														width={16}
+														height={16}
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="black"
+														strokeWidth="2"
+														strokeLinecap="round"
+														strokeLinejoin="round"
+													>
+														<path d="M20 6L9 17l-5-5" />
+													</svg>
+												</div>
+											</button>
+										</div>
+									</React.Fragment>
+								) : (
+									<React.Fragment>
+										<div className="flex flex-col overflow-y-auto h-full w-full gap-y-4">
+											<article className="my-2 font-semibold text-xl">
+												Which events will you be
+												attending
+											</article>
+											<article className="font-semibold text-lg">
+												{selectedGuest.name}
+											</article>
+											<div className="flex gap-x-4">
+												<input
+													type="checkbox"
+													className="checkbox checkbox-success"
+													onChange={handleCheckbox(
+														0,
+														"ceremony"
+													)}
+												/>
+												<article>
+													Ceremony, 4:30pm
+												</article>
+											</div>
+											<div className="flex gap-x-4">
+												<input
+													type="checkbox"
+													className="checkbox checkbox-success"
+													onChange={handleCheckbox(
+														0,
+														"reception"
+													)}
+												/>
+												<article>
+													Reception, 6:00pm
+												</article>
+											</div>
+											<div className="mt-4 gap-y-4">
+												<article className="text-xl font-semibold mb-4">
+													Group Attendees
+												</article>
+												<div className="flex flex-col">
+													{selectedGuest.group.map(
+														(guest, i) => (
+															<div
+																key={guest[1]}
+																className="flex flex-col gap-y-4"
+															>
+																<article className="font-semibold text-lg">
+																	{guest[0]}
+																</article>
+																<div className="flex gap-x-4">
+																	<input
+																		type="checkbox"
+																		className="checkbox checkbox-success"
+																		onChange={handleCheckbox(
+																			i +
+																				1,
+																			"ceremony"
+																		)}
+																	/>
+																	<article>
+																		Ceremony,
+																		4:30pm
+																	</article>
+																</div>
+																<div className="flex gap-x-4">
+																	<input
+																		type="checkbox"
+																		className="checkbox checkbox-success"
+																		onChange={handleCheckbox(
+																			i +
+																				1,
+																			"reception"
+																		)}
+																	/>
+																	<article>
+																		Reception,
+																		6:00pm
+																	</article>
+																</div>
+																<div className="divider divider-success px-2"></div>
+															</div>
+														)
+													)}
+												</div>
+											</div>
+										</div>
+										<div className="flex justify-between">
+											<button
+												onClick={() => {
+													setSelectedGuest(null)
+												}}
+												className="btn btn-outline btn-success mt-4"
+											>
+												Go Back
+											</button>
+											<button
+												onClick={handleFormButton}
+												className="btn btn-outline btn-success mt-4"
+											>
+												Confirm Choices
+												<div className="flex gap-x-2">
+													<svg
+														xmlns="http://www.w3.org/2000/svg"
+														width={16}
+														height={16}
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="black"
+														strokeWidth="2"
+														strokeLinecap="round"
+														strokeLinejoin="round"
+													>
+														<path d="M20 6L9 17l-5-5" />
+													</svg>
+												</div>
+											</button>
+										</div>
+									</React.Fragment>
+								)}
+							</div>
 						</div>
 					) : (
 						<React.Fragment>
