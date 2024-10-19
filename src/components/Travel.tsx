@@ -5,7 +5,7 @@ function Travel() {
 		<div className="flex h-screen w-full snap-start bg-primary">
 			<img
 				className="h-full w-1/2 object-cover overflow-hidden"
-				src={IMAGES.image1}
+				src={IMAGES.image3}
 				alt="Photo collage of Rebekah and Nicholas."
 			/>
 			<div className="flex items-center justify-center h-full w-1/2 bg-base-300">

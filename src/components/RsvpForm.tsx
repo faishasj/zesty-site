@@ -331,7 +331,7 @@ function RsvpForm() {
 			</div>
 			<img
 				className="h-full w-1/2 object-cover overflow-hidden"
-				src={IMAGES.image1}
+				src={IMAGES.image4}
 				alt="Photo collage of Rebekah and Nicholas."
 			/>
 		</div>
