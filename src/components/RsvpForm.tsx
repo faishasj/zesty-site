@@ -1,6 +1,7 @@
 import axios from "axios"
 import React from "react"
 import { useState } from "react"
+import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 
 interface selectedGuest {
 	name: string
@@ -17,11 +18,13 @@ interface formInput {
 
 function RsvpForm() {
 	const [searchInput, setSearchInput] = useState("")
+	const [loading, setLoading] = useState(false)
 	const [searchResults, setSearchResults] = useState([])
 	const [selectedGuest, setSelectedGuest] = useState<selectedGuest | null>(
 		null
 	)
 	const [formInput, setFormInput] = useState<formInput[]>([])
+	const [submitted, setSubmitted] = useState(false)
 
 	function handleSearchInput(event: React.ChangeEvent<HTMLInputElement>) {
 		setSearchInput(event.target.value)
@@ -29,6 +32,7 @@ function RsvpForm() {
 
 	function handleSearch() {
 		if (searchInput !== "") {
+			setLoading(true)
 			axios
 				.get(
 					"https://script.google.com/macros/s/AKfycbyM-9QSmfJV5fq7D2f39B7ZAC6qGz8MpbY4YzElXK9aWMPjmqsR8r3Esh-aD6ly5ZawuQ/exec",
@@ -43,10 +47,14 @@ function RsvpForm() {
 				.then((output) => {
 					setSearchResults(output.data)
 				})
+				.then(() => {
+					setLoading(false)
+				})
 		}
 	}
 
 	function fetchGuest(event: React.MouseEvent<HTMLButtonElement>) {
+		setLoading(true)
 		const button = event.target as HTMLButtonElement
 		axios
 			.get(
@@ -78,6 +86,9 @@ function RsvpForm() {
 				})
 				setFormInput(generatedObj)
 			})
+			.then(() => {
+				setLoading(false)
+			})
 	}
 
 	const handleDietary =
@@ -105,6 +116,7 @@ function RsvpForm() {
 		}
 
 	function handleSubmission() {
+		setLoading(true)
 		axios
 			.get(
 				"https://script.google.com/macros/s/AKfycbyM-9QSmfJV5fq7D2f39B7ZAC6qGz8MpbY4YzElXK9aWMPjmqsR8r3Esh-aD6ly5ZawuQ/exec",
@@ -119,12 +131,26 @@ function RsvpForm() {
 			.then(() => {
 				console.log("submission complete")
 			})
+			.then(() => {
+				setSubmitted(true)
+				setLoading(false)
+			})
 	}
 
 	return (
 		<div className="flex flex-col items-center justify-center p-4 h-screen w-full bg-b">
 			<div className="flex flex-col items-center rounded-3xl p-8 h-[80vh] w-[50vw] bg-slate-400">
-				{selectedGuest !== null ? (
+				{loading ? (
+					<DotLottieReact
+						src="https://lottie.host/276f08dd-d141-4a03-b68f-a26978d35281/322k4GRMWc.json"
+						loop
+						autoplay
+					/>
+				) : submitted ? (
+					<div className="flex flex-col h-full justify-center items-center text-xl">
+						Submission Complete
+					</div>
+				) : selectedGuest !== null ? (
 					<div className="flex flex-col items-center h-full w-4/5">
 						<div className="flex justify-start items-center w-full h-12">
 							<button
@@ -154,6 +180,7 @@ function RsvpForm() {
 									<article>Attending?</article>
 									<input
 										type="checkbox"
+										className="checkbox checkbox-primary"
 										onChange={handleCheckbox(0)}
 									/>
 								</div>
@@ -184,6 +211,7 @@ function RsvpForm() {
 													</article>
 													<input
 														type="checkbox"
+														className="checkbox checkbox-primary"
 														onChange={handleCheckbox(
 															i + 1
 														)}
@@ -236,16 +264,18 @@ function RsvpForm() {
 							</div>
 						</div>
 						<div className="flex flex-col h-5/6 w-3/5 items-center overflow-y-auto mt-4 gap-y-2">
-							{searchResults.map((result) => (
-								<button
-									key={result[1]}
-									value={result[1]}
-									onClick={fetchGuest}
-									className="btn btn-outline w-11/12"
-								>
-									{result[0]}
-								</button>
-							))}
+							<React.Fragment>
+								{searchResults.map((result) => (
+									<button
+										key={result[1]}
+										value={result[1]}
+										onClick={fetchGuest}
+										className="btn btn-outline w-11/12"
+									>
+										{result[0]}
+									</button>
+								))}
+							</React.Fragment>
 						</div>
 					</React.Fragment>
 				)}
