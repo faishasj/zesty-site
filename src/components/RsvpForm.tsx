@@ -162,12 +162,14 @@ function RsvpForm() {
 			<div className="flex items-center justify-center h-full w-1/2">
 				<div className="flex flex-col h-5/6 w-4/5 justify-center">
 					{loading ? (
+						// loading
 						<DotLottieReact
 							src="https://lottie.host/276f08dd-d141-4a03-b68f-a26978d35281/322k4GRMWc.json"
 							loop
 							autoplay
 						/>
 					) : submitted ? (
+						// form has been completed
 						<div className="flex flex-col h-1/5 justify-center items-center text-xl bg-white rounded">
 							<article className="text-black font-semibold mb-2">
 								Thank you for completing the form
@@ -178,12 +180,14 @@ function RsvpForm() {
 							</article>
 						</div>
 					) : selectedGuest !== null ? (
+						//  a guest has been selected from the search
 						<div className="flex flex-col h-full w-full">
 							<article className="text-3xl h-[8%] font-semibold w-full text-center">
 								RSVP Form
 							</article>
 							<div className="flex flex-col h-[92%] bg-white rounded-md p-4 text-black">
 								{selectedGuest.rsvpStatus === true ? (
+									// guest already rsvpd
 									<div className="flex h-4/5 items-center">
 										<article className="font-semibold text-lg">
 											{selectedGuest.name} has already
@@ -191,6 +195,7 @@ function RsvpForm() {
 										</article>
 									</div>
 								) : formPart ? (
+									// 2nd part of the form (dietary requirements)
 									<React.Fragment>
 										<div className="flex flex-col overflow-y-auto h-full w-full gap-y-4">
 											<article className="my-2 font-semibold text-xl">
@@ -253,6 +258,7 @@ function RsvpForm() {
 										</div>
 									</React.Fragment>
 								) : (
+									// 1st part of form (event attendance)
 									<React.Fragment>
 										<div className="flex flex-col overflow-y-auto h-full w-full gap-y-4">
 											<article className="my-2 font-semibold text-xl">
@@ -375,6 +381,7 @@ function RsvpForm() {
 							</div>
 						</div>
 					) : (
+						// base page (search for attendee)
 						<React.Fragment>
 							<div className="flex flex-col h-1/5">
 								<article className="text-3xl font-semibold mb-2">
@@ -428,6 +435,7 @@ function RsvpForm() {
 									</article>
 								</div>
 							</div>
+							{/* search results */}
 							<div className="flex flex-col h-4/5 w-full overflow-y-auto mt-4 gap-y-3">
 								<article className="font-semibold text-lg mt-4">
 									Results:
