@@ -3,13 +3,13 @@ import FaqComp from "./components/FaqComp";
 import Gifts from "./components/Gifts";
 import RsvpForm from "./components/RsvpForm";
 import Schedule from "./components/Schedule";
-import Travel from "./components/Footer";
+import Travel from "./components/Travel";
 import Welcome from "./components/Welcome";
 import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="w-screen h-screen items-center bg-b overflow-y-auto snap-y snap-mandatory">
+    <div className="w-screen h-screen items-center bg-info overflow-y-auto snap-y snap-mandatory">
       {/* Page 1 - Welcome */}
       <Welcome />
       {/* Page 2 - Image */}
