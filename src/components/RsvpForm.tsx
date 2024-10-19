@@ -109,6 +109,9 @@ function RsvpForm() {
 				formInput.map((obj, i) => {
 					if (i === index) {
 						obj.attendance = event.target.checked
+						if (event.target.checked === false) {
+							obj.dietary = ""
+						}
 					}
 					return obj
 				})

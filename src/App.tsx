@@ -1,4 +1,5 @@
 import IMAGES from "./Images/images"
+import FaqComp from "./components/FaqComp"
 import RsvpForm from "./components/RsvpForm"
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
 				/>
 			</div>
 			{/* page 4 */}
-			<div className="flex flex-col items-center p-4 h-screen w-full bg-primary snap-start snap-always"></div>
+			<FaqComp />
 		</div>
 	)
 }
