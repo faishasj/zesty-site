@@ -138,7 +138,7 @@ function RsvpForm() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center p-4 h-screen w-full bg-b">
+		<div className="flex flex-col items-center justify-center p-4 h-screen w-full bg-b snap-end">
 			<div className="flex flex-col items-center rounded-3xl p-8 h-[80vh] w-[50vw] bg-slate-400">
 				{loading ? (
 					<DotLottieReact
