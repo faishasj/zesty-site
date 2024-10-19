@@ -17,8 +17,8 @@ function Travel() {
 						appreciated.
 					</article>
 					<article className="text-xl">
-						See attached PDF{" "}
-						<a className="cursor-pointer" href="">
+						See attached PDF{""}
+						<a className="cursor-pointer" href="https://l.messenger.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F16W0rI5EQIaICAF05px3NlDtTANDgXDu1%2Fview%3Fusp%3Ddrive_link&h=AT2HPBvWIegw1MocUDrmiMW1j40LY6aex-jNrK4ss72eE46KOSIEf6hu47wGTUwnbg-txjvALBWkoBmnkLAGxJ7OV1MYtGlnVfNMiy_CPSjXstN6v9b95Prmq2YMWo4QdxBtqAgrXiEcgttsCIeRihxVdtg">
 							<u>here</u>
 						</a>
 						.
