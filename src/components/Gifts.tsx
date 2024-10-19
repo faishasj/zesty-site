@@ -5,7 +5,7 @@ function Gifts() {
     <div className="flex h-screen w-full snap-start bg-primary">
         <div className="flex items-center justify-center h-full w-1/2 bg-info">
           <div className="flex flex-col w-2/3 gap-y-7">
-            <article className="text-4xl font-semibold>">Gifts</article>
+            <article className="text-4xl font-semibold">Gifts</article>
             <div className="flex flex-col gap-y-5">
               <article className="text-lg">
               Should you wish to honour us with a gift, a contribution
@@ -49,7 +49,7 @@ function Gifts() {
         </div>
         <img
           className="h-full w-1/2 object-cover overflow-hidden"
-          src={IMAGES.image1}
+          src={IMAGES.image2}
           alt="Photo collage of Rebekah and Nicholas."
         />
     </div>
